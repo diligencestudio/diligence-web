@@ -1,0 +1,42 @@
+/**
+ * Tema de marca DILIGENCE para Tailwind v4 (CSS-first).
+ * Se importa desde el globals.css del storefront.
+ */
+@theme {
+  /* Colorimetría */
+  --color-obsidian: #050505;
+  --color-graphite: #111111;
+  --color-gunmetal: #2b2b2b;
+  --color-titanium: #7e7e7e;
+  --color-chrome: #c9c9c9;
+  --color-pure: #ffffff;
+
+  /* Tipografía (las familias se inyectan vía next/font como variables) */
+  --font-display: var(--font-display), 'Cinzel', serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+
+  /* Tracking de marca */
+  --tracking-brand: 0.35em;
+}
+
+/* Efecto metálico para titulares: gradiente plateado + relieve sutil. */
+.metal-text {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #c9c9c9 38%,
+    #7e7e7e 52%,
+    #d8d8d8 70%,
+    #9a9a9a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Wordmark con el tracking amplio de la marca */
+.wordmark {
+  letter-spacing: var(--tracking-brand);
+  font-family: var(--font-display);
+}

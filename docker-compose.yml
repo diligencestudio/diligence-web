@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: diligence-mongo
+    restart: unless-stopped
+    ports:
+      # Host 27018 para no chocar con un MongoDB local en 27017.
+      - "${MONGO_HOST_PORT:-27018}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-diligence}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-diligence}
+      MONGO_INITDB_DATABASE: ${MONGO_DB:-diligence}
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: diligence-mongo-express
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER:-diligence}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD:-diligence}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER:-diligence}:${MONGO_PASSWORD:-diligence}@mongo:27017/
+      ME_CONFIG_BASICAUTH: "false"
+
+volumes:
+  mongo-data:

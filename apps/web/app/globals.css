@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@import '@diligence/ui/theme.css';
+
+/* Escanear las clases usadas en el design system compartido. */
+@source '../../../packages/ui/src';
+
+html {
+  background-color: var(--color-obsidian);
+  color: var(--color-chrome);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-chrome);
+  color: var(--color-obsidian);
+}
+
+/* ── Logo monograma con plata en movimiento ──────────────────────────────────
+   El SVG (negro sólido sobre transparente) recorta exactamente la silueta del
+   monograma; el relleno es un degradado plateado que fluye y le cambia el tono.
+   Sin fondo, sin halo. */
+/* Logo en video que debe parecer una animación nativa (no un video embebido).
+   El fondo del video (#000/#050505) se funde con la obsidiana del footer vía
+   `mix-blend-mode: lighten`: cada píxel se compara con el fondo y se queda el
+   más claro → el negro del video ≤ #050505 desaparece y solo flota el logo. */
+.logo-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+
+  /* Fusión con el fondo del footer */
+  mix-blend-mode: lighten;
+  background-color: #050505; /* = var(--color-obsidian) */
+
+  /* Sin contenedor visible: ni borde, ni outline, ni sombra, ni esquinas */
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: none; /* no interactivo: se comporta como una animación */
+}
+
+/* Ocultar cualquier control nativo del reproductor (WebKit/Chrome) */
+.logo-video::-webkit-media-controls,
+.logo-video::-webkit-media-controls-enclosure,
+.logo-video::-webkit-media-controls-panel,
+.logo-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

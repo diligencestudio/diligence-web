@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:undergoldapparel.com)",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" https://undergoldapparel.com/ -o /tmp/ug.html)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -I -L -A \"Mozilla/5.0\" https://undergoldapparel.com/)",
+      "Bash(grep -oE '\"theme\":\\\\{\"id\":[0-9]*,\"name\":\"[^\"]*\"' ug.html)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(docker compose *)",
+      "Bash(open -a Docker)",
+      "Bash(docker info *)",
+      "Bash(break)",
+      "Bash(docker exec *)",
+      "Bash(printenv MONGODB_URI)",
+      "Bash(docker port *)",
+      "Bash(node dist/main.js)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/producto/obsidian-heavy-hoodie)",
+      "Bash(curl -s http://localhost:3000/coleccion/chrome)",
+      "Bash(echo \"web PID $!\")",
+      "Bash(node -e 'fetch\\(\"http://localhost:3000\"\\).then\\(\\(\\)=>process.exit\\(0\\)\\).catch\\(\\(\\)=>process.exit\\(1\\)\\)')",
+      "Bash(node -e ' *)",
+      "Bash(grep -oE 'fill=\"#[0-9a-fA-F]{3,6}\"' 1.svg)"
+    ]
+  }
+}

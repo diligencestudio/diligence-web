@@ -1,0 +1,26 @@
+{
+  "name": "diligence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DILIGENCE — e-commerce premium (Next.js + NestJS + MongoDB + Wompi)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:up": "docker compose up -d mongo",
+    "db:down": "docker compose down",
+    "seed": "npm run seed -w @diligence/api"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@11.12.1"
+}
