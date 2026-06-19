@@ -13,7 +13,7 @@ export default async function SalePage() {
     <CatalogView
       eyebrow="Tiempo limitado"
       title="Sale"
-      description="Piezas seleccionadas con precio especial mientras dure el inventario."
+      description="Piezas selectas a precio especial. Por tiempo limitado."
       products={products}
     />
   );

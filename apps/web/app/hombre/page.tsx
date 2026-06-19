@@ -9,5 +9,12 @@ export const metadata: Metadata = {
 
 export default async function HombrePage() {
   const products = await safeProducts(() => api.listProducts({ section: 'hombre', limit: '100' }));
-  return <CatalogView eyebrow="Sección" title="Hombre" products={products} />;
+  return (
+    <CatalogView
+      eyebrow="Sección"
+      title="Hombre"
+      description="Siluetas de poder. Cortes arquitectónicos para quien construye en silencio."
+      products={products}
+    />
+  );
 }

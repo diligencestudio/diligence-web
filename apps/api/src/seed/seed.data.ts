@@ -11,7 +11,8 @@ export const collectionsSeed = [
   {
     slug: 'obsidian',
     title: 'OBSIDIAN',
-    description: 'La línea insignia. Negro absoluto, cortes arquitectónicos.',
+    description:
+      'El capítulo insignia. Negro absoluto y cortes arquitectónicos para quien proyecta poder.',
     heroImage: `https://picsum.photos/seed/obsidian-hero/1920/1080?grayscale`,
     order: 1,
   },
@@ -25,7 +26,8 @@ export const collectionsSeed = [
   {
     slug: 'essentials',
     title: 'ESSENTIALS',
-    description: 'Básicos de peso premium. La base de todo guardarropa DILIGENCE.',
+    description:
+      'La base. Peso premium y construcción impecable, para usar todos los días.',
     heroImage: `https://picsum.photos/seed/essentials-hero/1920/1080?grayscale`,
     order: 3,
   },

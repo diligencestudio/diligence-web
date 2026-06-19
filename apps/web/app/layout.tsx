@@ -22,14 +22,14 @@ const sans = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL('http://localhost:3000'),
   title: {
-    default: 'DILIGENCE — Lujo oscuro. Precisión absoluta.',
+    default: 'DILIGENCE — Luxury streetwear',
     template: '%s · DILIGENCE',
   },
   description:
-    'DILIGENCE — moda premium de estética monocromática. Cortes arquitectónicos, materiales de peso, acabados metálicos.',
+    'DILIGENCE — luxury streetwear. El éxito atrae la mirada; la diligencia lo sostiene. Cada prenda es una representación del poder, la disciplina y la ambición.',
   openGraph: {
-    title: 'DILIGENCE',
-    description: 'Lujo oscuro. Precisión absoluta.',
+    title: 'DILIGENCE — Luxury streetwear',
+    description: 'El éxito atrae la mirada. La diligencia lo sostiene.',
     type: 'website',
   },
 };

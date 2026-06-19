@@ -16,5 +16,7 @@ export type BrandColor = keyof typeof brandColors;
 export const brand = {
   name: 'DILIGENCE',
   monogram: 'D⁄G',
-  tagline: 'Lujo oscuro. Precisión absoluta.',
+  /** Tesis central de la marca. */
+  tagline: 'El éxito atrae la mirada. La diligencia lo sostiene.',
+  category: 'Luxury streetwear',
 } as const;

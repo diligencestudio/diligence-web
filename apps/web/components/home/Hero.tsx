@@ -19,7 +19,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Colección Obsidian — 2026
+          Capítulo 01 — Obsidian
         </motion.p>
 
         <motion.h1
@@ -41,8 +41,8 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Lujo oscuro. Precisión absoluta. Cortes arquitectónicos en una paleta
-          monocromática de acabados metálicos.
+          El éxito atrae la mirada. La diligencia lo sostiene. Luxury streetwear
+          para quienes construyen su propio poder.
         </motion.p>
 
         <motion.div
@@ -52,10 +52,10 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
         >
           <Link href="/tienda">
-            <Button variant="primary">Explorar tienda</Button>
+            <Button variant="primary">Explorar la colección</Button>
           </Link>
           <Link href="/coleccion/obsidian">
-            <Button variant="outline">Ver Obsidian</Button>
+            <Button variant="outline">Obsidian</Button>
           </Link>
         </motion.div>
 

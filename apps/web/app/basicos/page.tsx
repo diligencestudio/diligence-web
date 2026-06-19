@@ -13,7 +13,7 @@ export default async function BasicosPage() {
     <CatalogView
       eyebrow="Esenciales"
       title="Básicos"
-      description="Prendas de peso premium pensadas para usarse todos los días."
+      description="La base. Peso premium y construcción impecable para la rutina de quien no se detiene."
       products={products}
     />
   );

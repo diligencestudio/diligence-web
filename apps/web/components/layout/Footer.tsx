@@ -10,8 +10,9 @@ export function Footer() {
             <LogoChrome width={300} />
           </Link>
           <p className="mt-1 max-w-xs text-sm leading-relaxed text-titanium">
-            Lujo oscuro. Precisión absoluta. Moda premium de estética
-            monocromática.
+            Luxury streetwear. El éxito atrae la mirada; la diligencia lo
+            sostiene. Cada prenda, una representación del poder, la disciplina y
+            la ambición.
           </p>
         </div>
 
