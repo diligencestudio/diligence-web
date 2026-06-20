@@ -19,12 +19,18 @@ export const envSchema = z.object({
     .transform((value) => value.split(',').map((o) => o.trim()).filter(Boolean)),
 
   // Wompi (sandbox). Opcionales en arranque para no bloquear Fases 0-3.
-  WOMPI_BASE_URL: z.string().url().default('https://sandbox.wompi.co/v1'),
+  WOMPI_BASE_URL: z.preprocess(
+    (v) => (v && String(v).trim()) || 'https://sandbox.wompi.co/v1',
+    z.string().url(),
+  ),
   WOMPI_PUBLIC_KEY: z.string().default(''),
   WOMPI_PRIVATE_KEY: z.string().default(''),
   WOMPI_INTEGRITY_SECRET: z.string().default(''),
   WOMPI_EVENTS_SECRET: z.string().default(''),
-  WOMPI_CHECKOUT_URL: z.string().url().default('https://checkout.wompi.co/p/'),
+  WOMPI_CHECKOUT_URL: z.preprocess(
+    (v) => (v && String(v).trim()) || 'https://checkout.wompi.co/p/',
+    z.string().url(),
+  ),
 });
 
 export type Env = z.infer<typeof envSchema>;
