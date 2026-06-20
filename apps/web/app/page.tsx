@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { CollectionDTO, ProductDTO } from '@diligence/contracts';
 import { api } from '@/lib/api';
 import { Hero } from '@/components/home/Hero';
+import { ImmersiveVideo } from '@/components/home/ImmersiveVideo';
+import { Manifesto } from '@/components/home/Manifesto';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { Reveal } from '@/components/Reveal';
 import { MetalText } from '@diligence/ui';
@@ -28,6 +30,10 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+
+      <ImmersiveVideo />
+
+      <Manifesto />
 
       <section className="mx-auto max-w-7xl px-6 py-24">
         <Reveal className="mb-14 text-center">
