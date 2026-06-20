@@ -18,8 +18,10 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "lint": "tsc --noEmit"
   },
+  "dependencies": {
+    "tsup": "^8.3.5"
+  },
   "devDependencies": {
-    "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   }
 }
