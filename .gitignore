@@ -24,6 +24,11 @@ npm-debug.log*
 # test coverage
 coverage/
 
+# large media (videos — use a CDN instead)
+*.mp4
+*.mov
+*.avi
+
 # os / editor
 .DS_Store
 *.pem
