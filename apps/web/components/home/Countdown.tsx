@@ -48,7 +48,7 @@ export function Countdown() {
 
   return (
     <motion.div
-      className="mx-auto mt-14 w-full max-w-xl"
+      className="mx-auto mt-10 w-full max-w-xl sm:mt-14"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, delay: 0.9 }}

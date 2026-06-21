@@ -29,7 +29,7 @@ export function Hero() {
         >
           <MetalText
             as="span"
-            className="block wordmark text-5xl leading-none md:text-8xl"
+            className="block wordmark text-[2rem] leading-none sm:text-6xl md:text-8xl"
           >
             DILIGENCE
           </MetalText>
@@ -46,7 +46,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          className="mt-10 flex justify-center gap-4"
+          className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
