@@ -60,7 +60,14 @@ export function ImmersiveVideo() {
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <motion.video
           ref={videoRef}
-          style={{ scale: isDesktop && !reduce ? scale : 1 }}
+          // Desktop: zoom-out ligado al scroll. (En móvil sin scale → video entero.)
+          style={isDesktop && !reduce ? { scale } : undefined}
+          // Revelado cinematográfico "barras de cine": clip-path que se abre desde
+          // el centro + fundido al entrar en viewport. No recorta el video final.
+          initial={reduce ? false : { opacity: 0, clipPath: 'inset(46% 0% 46% 0%)' }}
+          whileInView={reduce ? undefined : { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1.25, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 h-full w-full object-cover"
           loop
           muted
