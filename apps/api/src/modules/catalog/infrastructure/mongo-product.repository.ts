@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import type { Product as ProductEntity } from '../domain/product.entity';
 import type {
+  ProductInput,
   ProductQuery,
   ProductRepository,
 } from '../domain/product.repository';
@@ -57,6 +58,34 @@ export class MongoProductRepository implements ProductRepository {
 
   async count(query: ProductQuery): Promise<number> {
     return this.model.countDocuments(this.toFilter(query)).exec();
+  }
+
+  async findAllForAdmin(): Promise<ProductEntity[]> {
+    const docs = await this.model.find().sort({ createdAt: -1 }).lean().exec();
+    return docs.map((d) => this.toEntity(d));
+  }
+
+  async create(input: ProductInput): Promise<ProductEntity> {
+    const created = await this.model.create(input);
+    return this.toEntity(
+      created.toObject() as unknown as Record<string, unknown> & { _id: unknown },
+    );
+  }
+
+  async update(
+    id: string,
+    input: Partial<ProductInput>,
+  ): Promise<ProductEntity | null> {
+    const doc = await this.model
+      .findByIdAndUpdate(id, { $set: input }, { new: true })
+      .lean()
+      .exec();
+    return doc ? this.toEntity(doc) : null;
+  }
+
+  async remove(id: string): Promise<boolean> {
+    const res = await this.model.deleteOne({ _id: id }).exec();
+    return res.deletedCount > 0;
   }
 
   private toEntity(doc: Record<string, unknown> & { _id: unknown }): ProductEntity {

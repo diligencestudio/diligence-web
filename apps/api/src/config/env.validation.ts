@@ -31,6 +31,17 @@ export const envSchema = z.object({
     (v) => (v && String(v).trim()) || 'https://checkout.wompi.co/p/',
     z.string().url(),
   ),
+
+  // ── Admin / Auth ──────────────────────────────────────────────────────────
+  ADMIN_EMAIL: z.string().default('admin@diligence.co'),
+  ADMIN_PASSWORD: z.string().default('changeme'),
+  JWT_SECRET: z.string().default('dev-insecure-secret-change-me'),
+  JWT_EXPIRES_IN: z.string().default('12h'),
+
+  // ── Cloudinary (subida de imágenes del admin) ─────────────────────────────
+  CLOUDINARY_CLOUD_NAME: z.string().default(''),
+  CLOUDINARY_API_KEY: z.string().default(''),
+  CLOUDINARY_API_SECRET: z.string().default(''),
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -12,6 +12,7 @@ import {
 } from './infrastructure/schemas/collection.schema';
 import { ProductsController } from './presentation/products.controller';
 import { CollectionsController } from './presentation/collections.controller';
+import { AdminCatalogController } from './presentation/admin-catalog.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,11 @@ import { CollectionsController } from './presentation/collections.controller';
       { name: Collection.name, schema: CollectionSchema },
     ]),
   ],
-  controllers: [ProductsController, CollectionsController],
+  controllers: [
+    ProductsController,
+    CollectionsController,
+    AdminCatalogController,
+  ],
   providers: [
     CatalogService,
     // DIP: el puerto (token) se enlaza a la implementación concreta de Mongo.

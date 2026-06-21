@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-// Fecha objetivo: 30 de junio de 2026, 23:59:59 hora de Colombia (UTC-5).
-const TARGET = new Date('2026-06-30T23:59:59-05:00').getTime();
+// Fecha objetivo: 1 de julio de 2026, 00:00:00 hora de Colombia (UTC-5).
+const TARGET = new Date('2026-07-01T00:00:00-05:00').getTime();
 
 interface TimeLeft {
   days: number;
@@ -56,7 +56,7 @@ export function Countdown() {
       <div className="mb-6 flex items-center justify-center gap-4">
         <span className="h-px w-10 bg-gradient-to-r from-transparent to-titanium/50" />
         <span className="text-[10px] uppercase tracking-[0.45em] text-titanium">
-          Lanzamiento · 30 Junio 2026
+          Lanzamiento · 1 Julio 2026
         </span>
         <span className="h-px w-10 bg-gradient-to-l from-transparent to-titanium/50" />
       </div>

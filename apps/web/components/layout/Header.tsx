@@ -21,10 +21,14 @@ const linkCls =
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  // El carrito vive en localStorage; solo mostramos su contador tras montar
+  // en el cliente para evitar mismatch de hidratación (server siempre = 0).
+  const [mounted, setMounted] = useState(false);
   const count = useCart((s) => s.count());
   const openCart = useCart((s) => s.open);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -76,7 +80,7 @@ export function Header() {
               className="relative text-titanium hover:text-pure"
             >
               <CartIcon />
-              {count > 0 && (
+              {mounted && count > 0 && (
                 <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-pure px-1 text-[10px] font-medium text-obsidian">
                   {count}
                 </span>

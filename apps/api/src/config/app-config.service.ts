@@ -35,6 +35,32 @@ export class AppConfigService {
     return this.config.get('CORS_ORIGINS', { infer: true }) as unknown as string[];
   }
 
+  get admin() {
+    return {
+      email: this.config.get('ADMIN_EMAIL', { infer: true }),
+      password: this.config.get('ADMIN_PASSWORD', { infer: true }),
+    };
+  }
+
+  get jwt() {
+    return {
+      secret: this.config.get('JWT_SECRET', { infer: true }),
+      expiresIn: this.config.get('JWT_EXPIRES_IN', { infer: true }),
+    };
+  }
+
+  get cloudinary() {
+    const cloudName = this.config.get('CLOUDINARY_CLOUD_NAME', { infer: true });
+    const apiKey = this.config.get('CLOUDINARY_API_KEY', { infer: true });
+    const apiSecret = this.config.get('CLOUDINARY_API_SECRET', { infer: true });
+    return {
+      cloudName,
+      apiKey,
+      apiSecret,
+      configured: Boolean(cloudName && apiKey && apiSecret),
+    };
+  }
+
   get wompi() {
     return {
       baseUrl: this.config.get('WOMPI_BASE_URL', { infer: true }),

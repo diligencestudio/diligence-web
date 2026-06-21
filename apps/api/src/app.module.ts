@@ -3,8 +3,10 @@ import { LoggerModule } from 'nestjs-pino';
 import { AppConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
 import { HealthController } from './health/health.controller';
+import { AuthModule } from './modules/auth/auth.module';
 import { CatalogModule } from './modules/catalog/catalog.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { UploadsModule } from './modules/uploads/uploads.module';
 
 @Module({
   imports: [
@@ -19,8 +21,10 @@ import { OrdersModule } from './modules/orders/orders.module';
       },
     }),
     DatabaseModule,
+    AuthModule,
     CatalogModule,
     OrdersModule,
+    UploadsModule,
   ],
   controllers: [HealthController],
 })

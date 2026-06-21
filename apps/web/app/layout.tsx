@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Cinzel, Outfit } from 'next/font/google';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { SmoothScroll } from '@/components/SmoothScroll';
+import { StorefrontChrome } from '@/components/layout/StorefrontChrome';
 import './globals.css';
 
 const display = Cinzel({
@@ -38,10 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${display.variable} ${sans.variable}`}>
       <body className="bg-obsidian text-chrome antialiased">
-        <SmoothScroll />
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <StorefrontChrome>{children}</StorefrontChrome>
       </body>
     </html>
   );
