@@ -31,7 +31,10 @@ export function LogoChrome({
         disablePictureInPicture
         aria-hidden="true"
       >
-        <source src="/brand/diligence-logo.mp4" type="video/mp4" />
+        <source
+          src={process.env.NEXT_PUBLIC_LOGO_VIDEO_URL || '/brand/diligence-logo.mp4'}
+          type="video/mp4"
+        />
       </video>
       {withWordmark && (
         <span className="metal-text wordmark -mt-1 text-sm">DILIGENCE</span>

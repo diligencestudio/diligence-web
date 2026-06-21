@@ -14,6 +14,11 @@ import {
  * fijo (sticky) mientras se hace un zoom-out lento al hacer scroll. Arranca desde
  * el inicio la primera vez que entra en viewport y luego queda en bucle.
  */
+// En desarrollo usa el archivo local; en producción, la URL del CDN (Cloudinary).
+// Los .mp4 grandes NO se versionan en git — se sirven desde el CDN.
+const VIDEO_SRC =
+  process.env.NEXT_PUBLIC_IMMERSIVE_VIDEO_URL || '/brand/immersive.mp4';
+
 export function ImmersiveVideo() {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -48,7 +53,7 @@ export function ImmersiveVideo() {
           poster="/brand/immersive-poster.jpg"
           aria-hidden="true"
         >
-          <source src="/brand/immersive.mp4" type="video/mp4" />
+          <source src={VIDEO_SRC} type="video/mp4" />
         </motion.video>
 
         {/* Funde los bordes con la obsidiana (sin velo ni texto) */}
