@@ -6,6 +6,7 @@ import { Wordmark } from '@diligence/ui';
 import { useCart } from '@/store/cart';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { SearchIcon, AccountIcon, CartIcon } from './icons';
+import { LAUNCH_MODE } from '@/lib/launch';
 
 const LEFT_NAV = [
   { label: 'All', href: '/tienda' },
@@ -45,60 +46,84 @@ export function Header() {
         }`}
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5">
-          {/* Izquierda: navegación principal */}
-          <nav className="hidden flex-1 items-center gap-7 lg:flex">
-            {LEFT_NAV.map((item) => (
-              <Link key={item.href} href={item.href} className={linkCls}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Centro: wordmark */}
-          <Link href="/" className="flex-1 text-center lg:flex-none">
-            <Wordmark />
-          </Link>
-
-          {/* Derecha: blanks/sale + iconos */}
-          <div className="flex flex-1 items-center justify-end gap-5">
-            <nav className="hidden items-center gap-6 lg:flex">
-              {RIGHT_NAV.map((item) => (
+          {/* Izquierda: navegación principal (oculta en modo lanzamiento) */}
+          {LAUNCH_MODE ? (
+            <span className="flex-1" />
+          ) : (
+            <nav className="hidden flex-1 items-center gap-7 lg:flex">
+              {LEFT_NAV.map((item) => (
                 <Link key={item.href} href={item.href} className={linkCls}>
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <Link href="/buscar" aria-label="Buscar" className="text-titanium hover:text-pure">
-              <SearchIcon />
-            </Link>
-            <Link href="/cuenta" aria-label="Cuenta" className="hidden text-titanium hover:text-pure sm:block">
+          )}
+
+          {/* Centro: monograma estático + wordmark */}
+          <Link
+            href="/"
+            className="flex flex-1 items-center justify-center gap-2 lg:flex-none"
+          >
+            <span
+              className="brand-mono"
+              style={{ width: 30, aspectRatio: '595 / 532' }}
+              aria-hidden="true"
+            />
+            <Wordmark />
+          </Link>
+
+          {/* Derecha: en lanzamiento solo el acceso a cuenta/registro */}
+          <div className="flex flex-1 items-center justify-end gap-5">
+            {!LAUNCH_MODE && (
+              <nav className="hidden items-center gap-6 lg:flex">
+                {RIGHT_NAV.map((item) => (
+                  <Link key={item.href} href={item.href} className={linkCls}>
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            )}
+            {!LAUNCH_MODE && (
+              <Link href="/buscar" aria-label="Buscar" className="text-titanium hover:text-pure">
+                <SearchIcon />
+              </Link>
+            )}
+            <Link
+              href="/cuenta"
+              aria-label="Cuenta"
+              className={`text-titanium hover:text-pure ${LAUNCH_MODE ? 'block' : 'hidden sm:block'}`}
+            >
               <AccountIcon />
             </Link>
-            <button
-              onClick={openCart}
-              aria-label="Abrir carrito"
-              className="relative text-titanium hover:text-pure"
-            >
-              <CartIcon />
-              {mounted && count > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-pure px-1 text-[10px] font-medium text-obsidian">
-                  {count}
-                </span>
-              )}
-            </button>
+            {!LAUNCH_MODE && (
+              <button
+                onClick={openCart}
+                aria-label="Abrir carrito"
+                className="relative text-titanium hover:text-pure"
+              >
+                <CartIcon />
+                {mounted && count > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-pure px-1 text-[10px] font-medium text-obsidian">
+                    {count}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Navegación móvil */}
-        <nav className="flex items-center justify-center gap-5 overflow-x-auto border-t border-gunmetal/40 px-6 py-3 lg:hidden">
-          {[...LEFT_NAV, ...RIGHT_NAV].map((item) => (
-            <Link key={item.href} href={item.href} className={`${linkCls} whitespace-nowrap`}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Navegación móvil (oculta en modo lanzamiento) */}
+        {!LAUNCH_MODE && (
+          <nav className="flex items-center justify-center gap-5 overflow-x-auto border-t border-gunmetal/40 px-6 py-3 lg:hidden">
+            {[...LEFT_NAV, ...RIGHT_NAV].map((item) => (
+              <Link key={item.href} href={item.href} className={`${linkCls} whitespace-nowrap`}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        )}
       </header>
-      <CartDrawer />
+      {!LAUNCH_MODE && <CartDrawer />}
     </>
   );
 }

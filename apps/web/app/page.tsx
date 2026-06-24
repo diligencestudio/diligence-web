@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { CollectionDTO, ProductDTO } from '@diligence/contracts';
 import { api } from '@/lib/api';
+import { LAUNCH_MODE } from '@/lib/launch';
 import { Hero } from '@/components/home/Hero';
 import { ImmersiveVideo } from '@/components/home/ImmersiveVideo';
 import { Manifesto } from '@/components/home/Manifesto';
@@ -25,6 +26,11 @@ async function getData(): Promise<{
 }
 
 export default async function HomePage() {
+  // Modo lanzamiento: solo el hero con el contador, nada más.
+  if (LAUNCH_MODE) {
+    return <Hero />;
+  }
+
   const { featured, collections } = await getData();
 
   return (

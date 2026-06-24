@@ -21,6 +21,24 @@ body {
   color: var(--color-obsidian);
 }
 
+/* Monograma D⁄G estático, recortado del SVG y relleno con el MISMO degradado
+   plata del wordmark (.metal-text). Para usar junto al texto en el header. */
+.brand-mono {
+  display: inline-block;
+  -webkit-mask: url('/brand/DLG-CON-DILIGENCE.svg') center / contain no-repeat;
+  mask: url('/brand/DLG-CON-DILIGENCE.svg') center / contain no-repeat;
+  /* Exactamente el mismo degradado que .metal-text (texto y números del contador)
+     para que monograma + wordmark + contador sean del mismo color. */
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #c9c9c9 38%,
+    #7e7e7e 52%,
+    #d8d8d8 70%,
+    #9a9a9a 100%
+  );
+}
+
 /* ── Logo monograma con plata en movimiento ──────────────────────────────────
    El SVG (negro sólido sobre transparente) recorta exactamente la silueta del
    monograma; el relleno es un degradado plateado que fluye y le cambia el tono.

@@ -1,6 +1,6 @@
 interface LogoChromeProps {
-  /** Ancho en px del logo. */
-  width?: number;
+  /** Ancho del logo: px (number) o cualquier valor CSS (p.ej. 'clamp(...)'). */
+  width?: number | string;
   className?: string;
   /** Muestra el wordmark "DILIGENCE" debajo del monograma. */
   withWordmark?: boolean;
