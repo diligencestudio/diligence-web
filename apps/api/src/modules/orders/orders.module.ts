@@ -25,5 +25,6 @@ import { WompiWebhookController } from './presentation/wompi-webhook.controller'
     PaymentWebhookService,
     { provide: ORDER_REPOSITORY, useClass: MongoOrderRepository },
   ],
+  exports: [OrdersService],
 })
 export class OrdersModule {}

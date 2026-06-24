@@ -23,4 +23,10 @@ export class OrdersService {
     if (!order) throw new NotFoundException(`Orden ${reference} no encontrada`);
     return toOrderDTO(order);
   }
+
+  /** Historial de pedidos de un cliente, por su email de contacto. */
+  async listByCustomerEmail(email: string): Promise<OrderDTO[]> {
+    const orders = await this.orders.findByCustomerEmail(email);
+    return orders.map(toOrderDTO);
+  }
 }

@@ -10,33 +10,43 @@ import { LAUNCH_MODE } from '@/lib/launch';
 /**
  * Envuelve el contenido del sitio.
  * - /admin: sin chrome (herramienta interna).
- * - Modo lanzamiento: Header (solo logo + cuenta) + hero, SIN footer, con el
- *   scroll bloqueado (pantalla única).
+ * - Modo lanzamiento + home: Header + hero, SIN footer y con scroll bloqueado.
+ * - Modo lanzamiento + otras páginas (p.ej. /cuenta): Header + contenido
+ *   scrolleable, sin footer (para que el registro funcione).
  * - Normal: header + footer + scroll suave.
  */
 export function StorefrontChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
-  const teaser = LAUNCH_MODE && !isAdmin;
+  const teaserHome = LAUNCH_MODE && !isAdmin && pathname === '/';
 
-  // Bloquea el scroll mientras el sitio está en modo lanzamiento.
+  // Bloquea el scroll solo en el home del teaser.
   useEffect(() => {
-    if (!teaser) return;
+    if (!teaserHome) return;
     const html = document.documentElement;
     const prev = html.style.overflow;
     html.style.overflow = 'hidden';
     return () => {
       html.style.overflow = prev;
     };
-  }, [teaser]);
+  }, [teaserHome]);
 
   if (isAdmin) return <>{children}</>;
 
-  if (teaser) {
+  if (teaserHome) {
     return (
       <>
         <Header />
         <main className="h-[100svh] overflow-hidden">{children}</main>
+      </>
+    );
+  }
+
+  if (LAUNCH_MODE) {
+    return (
+      <>
+        <Header />
+        <main className="min-h-screen">{children}</main>
       </>
     );
   }

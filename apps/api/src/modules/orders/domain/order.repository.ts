@@ -9,6 +9,7 @@ export interface OrderRepository {
   create(order: NewOrder): Promise<Order>;
   findById(id: string): Promise<Order | null>;
   findByReference(reference: string): Promise<Order | null>;
+  findByCustomerEmail(email: string): Promise<Order[]>;
   updateStatus(
     reference: string,
     status: OrderStatus,

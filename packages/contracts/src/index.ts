@@ -88,6 +88,33 @@ export interface OrderDTO {
   createdAt: string;
 }
 
+// ─── Cuentas de cliente ───────────────────────────────────────────────────────
+
+export interface AccountDTO {
+  id: string;
+  email: string;
+  fullName: string;
+  phone: string;
+  createdAt: string;
+}
+
+export interface RegisterInput {
+  email: string;
+  password: string;
+  fullName: string;
+  phone: string;
+}
+
+export interface AccountLoginInput {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  account: AccountDTO;
+}
+
 // Payload que el front envía para iniciar checkout.
 export interface CheckoutItemInput {
   productId: string;

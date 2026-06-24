@@ -42,6 +42,7 @@ describe('CheckoutService', () => {
       ),
       findById: jest.fn(),
       findByReference: jest.fn(),
+      findByCustomerEmail: jest.fn(),
       updateStatus: jest.fn(),
     };
     payments = {

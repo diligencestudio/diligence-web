@@ -6,6 +6,7 @@ import { HealthController } from './health/health.controller';
 import { AuthModule } from './modules/auth/auth.module';
 import { CatalogModule } from './modules/catalog/catalog.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { AccountsModule } from './modules/accounts/accounts.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 
 @Module({
@@ -24,6 +25,7 @@ import { UploadsModule } from './modules/uploads/uploads.module';
     AuthModule,
     CatalogModule,
     OrdersModule,
+    AccountsModule,
     UploadsModule,
   ],
   controllers: [HealthController],

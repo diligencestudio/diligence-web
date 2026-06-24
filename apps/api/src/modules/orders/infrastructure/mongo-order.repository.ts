@@ -29,6 +29,16 @@ export class MongoOrderRepository implements OrderRepository {
     return doc ? this.toEntity(doc) : null;
   }
 
+  async findByCustomerEmail(email: string): Promise<OrderEntity[]> {
+    const escaped = email.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const docs = await this.model
+      .find({ 'customer.email': { $regex: `^${escaped}$`, $options: 'i' } })
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+    return docs.map((d) => this.toEntity(d));
+  }
+
   async updateStatus(
     reference: string,
     status: OrderStatus,
