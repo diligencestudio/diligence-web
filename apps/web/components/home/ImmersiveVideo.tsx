@@ -59,11 +59,11 @@ export function ImmersiveVideo() {
         <motion.video
           ref={videoRef}
           style={motionStyle}
-          // Revelado cinematográfico "barras de cine": se abre desde el centro.
-          initial={reduce ? false : { opacity: 0, clipPath: 'inset(46% 0% 46% 0%)' }}
-          whileInView={reduce ? undefined : { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          // Fade-in seguro: animate en montaje (no whileInView), así el video NUNCA
+          // se queda invisible aunque el observer no dispare.
+          initial={reduce ? false : { opacity: 0 }}
+          animate={reduce ? undefined : { opacity: 1 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           // Móvil: banda 16:9 completa. Desktop: full-bleed object-cover.
           className="w-full object-cover aspect-video sm:absolute sm:inset-0 sm:h-full sm:aspect-auto"
           loop
