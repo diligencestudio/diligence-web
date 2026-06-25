@@ -48,12 +48,12 @@ export function Countdown() {
 
   return (
     <motion.div
-      className="mx-auto mt-10 w-full max-w-xl sm:mt-14"
+      className="mx-auto mt-7 w-full max-w-xl sm:mt-14"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, delay: 0.9 }}
     >
-      <div className="mb-6 flex items-center justify-center gap-4">
+      <div className="mb-4 flex items-center justify-center gap-4 sm:mb-6">
         <span className="h-px w-10 bg-gradient-to-r from-transparent to-titanium/50" />
         <span className="text-[10px] uppercase tracking-[0.45em] text-titanium">
           Lanzamiento · 1 Julio 2026
@@ -66,7 +66,7 @@ export function Countdown() {
           <div key={unit.key} className="flex items-start gap-3 sm:gap-6">
             <div className="flex flex-col items-center">
               <span
-                className="metal-text wordmark tabular-nums text-4xl leading-none sm:text-6xl"
+                className="metal-text wordmark tabular-nums text-[2rem] leading-none sm:text-6xl"
                 style={{ letterSpacing: '0.05em' }}
                 suppressHydrationWarning
               >

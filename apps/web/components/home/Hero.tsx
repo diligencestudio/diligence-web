@@ -10,7 +10,7 @@ import { LAUNCH_MODE } from '@/lib/launch';
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-16 pt-24 sm:pt-28">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-[calc(env(safe-area-inset-bottom,0px)+1.75rem)] pt-20 sm:pb-16 sm:pt-28">
       {/* Fondo: foto de campaña sobre obsidiana */}
       <div className="absolute inset-0 bg-obsidian" />
       <Image
@@ -30,7 +30,7 @@ export function Hero() {
 
       <div className="relative my-auto text-center [text-shadow:0_2px_18px_rgba(5,5,5,0.95)]">
         <motion.p
-          className="mb-6 text-[11px] uppercase tracking-[0.5em] text-titanium"
+          className="mb-4 text-[11px] uppercase tracking-[0.5em] text-titanium sm:mb-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -41,11 +41,11 @@ export function Hero() {
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          <LogoChrome width="clamp(280px, min(82vw, 56vh), 680px)" />
+          <LogoChrome width="clamp(240px, min(80vw, 42svh), 680px)" />
         </div>
 
         <motion.p
-          className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-titanium"
+          className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-titanium sm:mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -76,7 +76,7 @@ export function Hero() {
         {/* Modo lanzamiento: CTA para que los usuarios se registren antes del drop. */}
         {LAUNCH_MODE && (
           <motion.div
-            className="mt-10 flex justify-center"
+            className="mt-7 flex justify-center sm:mt-10"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
