@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@diligence/ui';
 import { Countdown } from './Countdown';
@@ -10,11 +11,24 @@ import { LAUNCH_MODE } from '@/lib/launch';
 export function Hero() {
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-16 pt-24 sm:pt-28">
-      {/* Fondo: degradado obsidiana con vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#161616_0%,_#050505_70%)]" />
-      <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/diligence-hero/1920/1200?grayscale')] bg-cover bg-center opacity-20" />
+      {/* Fondo: foto de campaña sobre obsidiana */}
+      <div className="absolute inset-0 bg-obsidian" />
+      <Image
+        src="/brand/IMG_0733.JPEG"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center opacity-70"
+      />
+      {/* Viñeteado radial: oscurece la zona del logo (que usa mix-blend lighten
+          y necesita fondo oscuro) y deja respirar la foto en los bordes. */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_90%_at_50%_36%,_rgba(5,5,5,0.82)_0%,_rgba(5,5,5,0.5)_42%,_rgba(5,5,5,0.28)_100%)]" />
+      {/* Scrim vertical: refuerza la legibilidad del texto de la mitad inferior
+          (párrafo, contador, CTA), que cae sobre las zonas claras de la foto. */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(5,5,5,0.5)_0%,_transparent_22%,_transparent_38%,_rgba(5,5,5,0.6)_62%,_rgba(5,5,5,0.88)_100%)]" />
 
-      <div className="relative my-auto text-center">
+      <div className="relative my-auto text-center [text-shadow:0_2px_18px_rgba(5,5,5,0.95)]">
         <motion.p
           className="mb-6 text-[11px] uppercase tracking-[0.5em] text-titanium"
           initial={{ opacity: 0, y: 12 }}
@@ -58,6 +72,23 @@ export function Hero() {
         )}
 
         <Countdown />
+
+        {/* Modo lanzamiento: CTA para que los usuarios se registren antes del drop. */}
+        {LAUNCH_MODE && (
+          <motion.div
+            className="mt-10 flex justify-center"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <Link
+              href="/cuenta?registro=1"
+              className="inline-flex items-center justify-center border border-chrome/30 bg-white/[0.04] px-10 py-3.5 text-xs uppercase tracking-[0.28em] backdrop-blur-sm transition-all duration-300 hover:border-chrome/70 hover:bg-white/[0.08]"
+            >
+              <span className="metal-text">Regístrate</span>
+            </Link>
+          </motion.div>
+        )}
       </div>
 
       {/* Accesos directos + indicador de scroll: solo cuando la tienda está abierta. */}

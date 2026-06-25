@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import type { AccountDTO, OrderDTO, OrderStatus } from '@diligence/contracts';
 import { Button, MetalText } from '@diligence/ui';
 import { accountApi, accountToken } from '@/lib/account';
@@ -19,6 +20,18 @@ const inputCls =
 const labelCls = 'mb-2 block text-[11px] uppercase tracking-[0.25em] text-titanium';
 
 export default function CuentaPage() {
+  return (
+    <Suspense fallback={<div className="pt-40 text-center text-sm text-titanium">Cargando…</div>}>
+      <CuentaContent />
+    </Suspense>
+  );
+}
+
+function CuentaContent() {
+  const params = useSearchParams();
+  // Cuando se llega desde el CTA de lanzamiento (/cuenta?registro=1) abrimos
+  // directamente el formulario de registro.
+  const initialMode = params.get('registro') === '1' ? 'register' : 'login';
   const [ready, setReady] = useState(false);
   const [account, setAccount] = useState<AccountDTO | null>(null);
   const [orders, setOrders] = useState<OrderDTO[]>([]);
@@ -58,7 +71,7 @@ export default function CuentaPage() {
       {account ? (
         <Dashboard account={account} orders={orders} onLogout={logout} />
       ) : (
-        <AuthForms onAuth={onAuth} />
+        <AuthForms onAuth={onAuth} initialMode={initialMode} />
       )}
     </div>
   );
@@ -66,8 +79,14 @@ export default function CuentaPage() {
 
 /* ── Login / Registro ──────────────────────────────────────────────────────── */
 
-function AuthForms({ onAuth }: { onAuth: (a: AccountDTO) => void }) {
-  const [mode, setMode] = useState<'login' | 'register'>('login');
+function AuthForms({
+  onAuth,
+  initialMode = 'login',
+}: {
+  onAuth: (a: AccountDTO) => void;
+  initialMode?: 'login' | 'register';
+}) {
+  const [mode, setMode] = useState<'login' | 'register'>(initialMode);
   const [form, setForm] = useState({ email: '', password: '', fullName: '', phone: '' });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
