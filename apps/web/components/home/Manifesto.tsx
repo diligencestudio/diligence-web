@@ -9,7 +9,7 @@ import {
 } from 'framer-motion';
 import { MetalText } from '@diligence/ui';
 
-const VALUES = ['Hiperfoco', 'Acción masiva', 'Resiliencia', 'Diligencia'];
+const VALUES = ['Discipline', 'Ambition', 'Purpose', 'Diligence'];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -65,18 +65,8 @@ export function Manifesto() {
               as="span"
               className="wordmark block text-2xl leading-tight md:text-5xl"
             >
-              El éxito atrae la mirada.
+              THE PLANS OF THE DILIGENT WILL PROSPER
             </MetalText>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, delay: 0.15, ease }}
-          >
-            <span className="wordmark block text-2xl leading-tight text-titanium md:text-5xl">
-              La diligencia lo sostiene.
-            </span>
           </motion.div>
         </div>
 
@@ -95,9 +85,10 @@ export function Manifesto() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1, delay: 0.4, ease }}
         >
-          Detrás de cada pieza hay una decisión repetida en silencio: entrenar,
-          insistir, construir. El lujo es la superficie. La diligencia es la
-          estructura. DILIGENCE viste a quienes pagan el precio.
+          El éxito, el poder y el estatus no son producto del azar, sino el
+          resultado de ambición, disciplina constante y un propósito
+          inquebrantable. Es un recordatorio de que todo aquello que se
+          construye con diligencia está destinado a prosperar.
         </motion.p>
 
         <motion.ul

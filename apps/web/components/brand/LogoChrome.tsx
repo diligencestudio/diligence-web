@@ -6,31 +6,23 @@ interface LogoChromeProps {
   /** Ancho del logo: px (number) o cualquier valor CSS (p.ej. 'clamp(...)'). */
   width?: number | string;
   className?: string;
-  /** Muestra el wordmark "DILIGENCE" debajo del monograma. */
-  withWordmark?: boolean;
 }
 
-// El video dura 8s, pero el ciclo útil es: armado del monograma + "escritura" del
-// wordmark "DILIGENCE" (~0–4s) y el logo completo en metal (~4–6.9s). A partir de
-// ~7s el video desarma/borra las letras de forma abrupta y reinicia el wordmark a
-// medias (frame ~7.9s: una "D" suelta), lo que se veía feo con el loop nativo de 8s.
-// Recortamos el loop justo antes de ese desvanecimiento: armado → completo → reinicio.
+// El video fuente dura 8s y pasa de plata/azul a un grado dorado a partir de ~3.5s,
+// antes de desarmarse. Recortamos (crop + trim) para quedarnos solo con el monograma
+// —sin el wordmark "DILIGENCE" horneado debajo— y solo con el tramo plata/azul.
 const LOOP_START = 0.05;
-const LOOP_END = 7.7;
+const LOOP_END = 3.3;
 
 /**
- * Lockup de marca: monograma D⁄G en video metálico animado + wordmark opcional.
+ * Lockup de marca: monograma D⁄G en video metálico animado (plata/azul).
  * El video se mezcla en `lighten` para fundir su fondo negro con la obsidiana del
  * footer y parecer una animación nativa, sin contenedor. Estilos en `.logo-video`.
  *
  * El loop se controla por JS (no por el atributo `loop`) para reiniciar en `LOOP_END`
- * y nunca mostrar el tramo final donde el video borra las letras a medias.
+ * y nunca mostrar el tramo final donde el grado vira a dorado.
  */
-export function LogoChrome({
-  width = 260,
-  className = "",
-  withWordmark = false,
-}: LogoChromeProps) {
+export function LogoChrome({ width = 260, className = "" }: LogoChromeProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -77,14 +69,11 @@ export function LogoChrome({
         <source
           src={
             process.env.NEXT_PUBLIC_LOGO_VIDEO_URL ||
-            "/brand/diligence-logo.mp4"
+            "/brand/diligence-monogram-silver.mp4"
           }
           type="video/mp4"
         />
       </video>
-      {withWordmark && (
-        <span className="metal-text wordmark -mt-1 text-sm">DILIGENCE</span>
-      )}
     </span>
   );
 }

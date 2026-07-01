@@ -22,7 +22,22 @@
       "Bash(echo \"web PID $!\")",
       "Bash(node -e 'fetch\\(\"http://localhost:3000\"\\).then\\(\\(\\)=>process.exit\\(0\\)\\).catch\\(\\(\\)=>process.exit\\(1\\)\\)')",
       "Bash(node -e ' *)",
-      "Bash(grep -oE 'fill=\"#[0-9a-fA-F]{3,6}\"' 1.svg)"
+      "Bash(grep -oE 'fill=\"#[0-9a-fA-F]{3,6}\"' 1.svg)",
+      "Bash(python3 -c \"import cv2\")",
+      "Bash(python3 -c \"import av\")",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/coleccion/obsidian)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:4000/api/collections/obsidian)",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/package*.json /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/shot.mjs /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/home.png)",
+      "Bash(mongosh mongodb://diligence:diligence@localhost:27018/diligence?authSource=admin --quiet --eval ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/coleccion/realization)",
+      "Bash(node shot.mjs)",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/package*.json /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/shot.mjs /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/home_full.png)",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/package*.json /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/shot*.mjs /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/*.png)",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/package*.json /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/shot.mjs /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/manifesto.png)"
+    ],
+    "additionalDirectories": [
+      "/private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules"
     ]
   }
 }

@@ -35,13 +35,13 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Capítulo 01 — Obsidian
+          ACT 01 — REALIZATION
         </motion.p>
 
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          <LogoChrome width="clamp(240px, min(80vw, 42svh), 680px)" />
+          <LogoChrome width="clamp(380px, min(100vw, 64svh), 1040px)" />
         </div>
 
         <motion.p
@@ -65,8 +65,8 @@ export function Hero() {
             <Link href="/tienda">
               <Button variant="primary">Explorar la colección</Button>
             </Link>
-            <Link href="/coleccion/obsidian">
-              <Button variant="outline">Obsidian</Button>
+            <Link href="/coleccion/realization">
+              <Button variant="outline">Realization</Button>
             </Link>
           </motion.div>
         )}

@@ -59,16 +59,11 @@ export function Header() {
             </nav>
           )}
 
-          {/* Centro: monograma estático + wordmark */}
+          {/* Centro: wordmark */}
           <Link
             href="/"
             className="flex flex-1 items-center justify-center gap-2 lg:flex-none"
           >
-            <span
-              className="brand-mono"
-              style={{ width: 30, aspectRatio: '595 / 532' }}
-              aria-hidden="true"
-            />
             <Wordmark />
           </Link>
 

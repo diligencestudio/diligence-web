@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node shot.mjs)",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/frames /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/package*.json /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/shot*.mjs /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/home.png /private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/footer.png)",
+      "Bash(git check-ignore *)",
+      "Bash(lsof -iTCP -sTCP:LISTEN -P)",
+      "Bash(ps eww *)",
+      "Bash(curl -s http://localhost:4000/collections)",
+      "Bash(curl -s http://localhost:4000/api/collections)"
+    ],
+    "additionalDirectories": [
+      "/private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules"
+    ]
+  }
+}

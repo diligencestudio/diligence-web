@@ -9,11 +9,11 @@ const img = (seed: string, alt: string) => ({
 
 export const collectionsSeed = [
   {
-    slug: 'obsidian',
-    title: 'OBSIDIAN',
+    slug: 'realization',
+    title: 'REALIZATION',
     description:
-      'El capítulo insignia. Negro absoluto y cortes arquitectónicos para quien proyecta poder.',
-    heroImage: `https://picsum.photos/seed/obsidian-hero/1920/1080?grayscale`,
+      'El acto insignia. Negro absoluto y cortes arquitectónicos para quien materializa su poder.',
+    heroImage: `https://picsum.photos/seed/realization-hero/1920/1080?grayscale`,
     order: 1,
   },
   {
@@ -75,7 +75,7 @@ export const productsSeed = [
     images: [img('obsidian-hoodie-1', 'Obsidian Heavy Hoodie frente'), img('obsidian-hoodie-2', 'Obsidian Heavy Hoodie espalda')],
     section: 'hombre',
     category: 'hoodies',
-    collection: 'obsidian',
+    collection: 'realization',
     sizes: ['S', 'M', 'L', 'XL'],
     colors: ['Obsidian Black'],
     stock: 40,
@@ -125,7 +125,7 @@ export const productsSeed = [
     images: [img('graphite-denim-1', 'Graphite Denim'), img('graphite-denim-2', 'Graphite Denim detalle')],
     section: 'hombre',
     category: 'denim',
-    collection: 'obsidian',
+    collection: 'realization',
     sizes: ['28', '30', '32', '34', '36'],
     colors: ['Graphite'],
     stock: 50,
@@ -142,7 +142,7 @@ export const productsSeed = [
     images: [img('obsidian-corset-1', 'Obsidian Corset Top'), img('obsidian-corset-2', 'Obsidian Corset Top detalle')],
     section: 'mujer',
     category: 'tops',
-    collection: 'obsidian',
+    collection: 'realization',
     sizes: ['XS', 'S', 'M', 'L'],
     colors: ['Obsidian Black'],
     stock: 35,
@@ -175,7 +175,7 @@ export const productsSeed = [
     images: [img('graphite-wide-1', 'Graphite Wide Pant'), img('graphite-wide-2', 'Graphite Wide Pant detalle')],
     section: 'mujer',
     category: 'pants',
-    collection: 'obsidian',
+    collection: 'realization',
     sizes: ['XS', 'S', 'M', 'L'],
     colors: ['Graphite'],
     stock: 28,

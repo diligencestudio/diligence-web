@@ -8,7 +8,7 @@ import { Reveal } from '@/components/Reveal';
 
 export const metadata: Metadata = {
   title: 'Colecciones',
-  description: 'Las colecciones de DILIGENCE: Obsidian, Chrome y Essentials.',
+  description: 'Las colecciones de DILIGENCE: Realization, Chrome y Essentials.',
 };
 
 export default async function ColeccionesPage() {
