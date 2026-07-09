@@ -10,7 +10,7 @@ import { LAUNCH_MODE } from '@/lib/launch';
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-[calc(env(safe-area-inset-bottom,0px)+1.75rem)] pt-20 sm:pb-16 sm:pt-28">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-[calc(env(safe-area-inset-bottom,0px)+1.75rem)] pt-32 sm:pb-16 lg:pt-28">
       {/* Fondo: foto de campaña sobre obsidiana */}
       <div className="absolute inset-0 bg-obsidian" />
       <Image
@@ -41,7 +41,7 @@ export function Hero() {
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          <LogoChrome width="clamp(380px, min(100vw, 64svh), 1040px)" />
+          <LogoChrome width="clamp(380px, min(100vw, 58svh), 1040px)" />
         </div>
 
         <motion.p

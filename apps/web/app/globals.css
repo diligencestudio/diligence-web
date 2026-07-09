@@ -50,7 +50,7 @@ body {
 .logo-video {
   display: block;
   width: 100%;
-  aspect-ratio: 560 / 404;
+  aspect-ratio: 414 / 368;
   object-fit: cover;
 
   /* Fusión con el fondo del footer */
