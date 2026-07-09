@@ -16,8 +16,9 @@ const VIDEO_SRC =
 /**
  * Sección de video.
  * - Desktop: full-bleed inmersivo con zoom-out lento ligado al scroll.
- * - Móvil: el video 16:9 se ve COMPLETO y compacto, con un revelado
- *   cinematográfico de entrada (sin scroll-pin ni parallax → se ve limpio).
+ * - Móvil: encuadre vertical 4:5 full-bleed (object-cover recorta los lados
+ *   del 16:9), con un revelado cinematográfico de entrada (sin scroll-pin
+ *   ni parallax → se ve limpio).
  * Arranca desde el inicio la primera vez que entra en viewport y queda en bucle.
  */
 export function ImmersiveVideo() {
@@ -54,7 +55,7 @@ export function ImmersiveVideo() {
 
   return (
     <div ref={ref} className="relative w-full bg-obsidian sm:h-[230vh]">
-      <div className="relative flex w-full items-center justify-center overflow-hidden py-4 sm:sticky sm:top-0 sm:h-screen sm:py-0">
+      <div className="relative flex w-full items-center justify-center overflow-hidden sm:sticky sm:top-0 sm:h-screen">
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <motion.video
           ref={videoRef}
@@ -64,8 +65,9 @@ export function ImmersiveVideo() {
           initial={reduce ? false : { opacity: 0 }}
           animate={reduce ? undefined : { opacity: 1 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          // Móvil: banda 16:9 completa. Desktop: full-bleed object-cover.
-          className="w-full object-cover aspect-video sm:absolute sm:inset-0 sm:h-full sm:aspect-auto"
+          // Móvil: encuadre vertical 4:5 (cover recorta los lados del 16:9).
+          // Desktop: full-bleed object-cover.
+          className="w-full object-cover aspect-[4/5] sm:absolute sm:inset-0 sm:h-full sm:aspect-auto"
           loop
           muted
           playsInline
