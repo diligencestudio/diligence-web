@@ -41,9 +41,9 @@ export function Hero() {
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          {/* En móvil se limita a 78vw: el video fuente es de 414px de ancho y a
-              pantalla completa se pixela; más pequeño también respira mejor. */}
-          <LogoChrome width="clamp(260px, min(78vw, 58svh), 1040px)" />
+          {/* 70vw en móvil ≈ resolución nativa del video (828px) en pantallas 3x:
+              más grande se estira y se pixela; más pequeño también respira mejor. */}
+          <LogoChrome width="clamp(240px, min(70vw, 58svh), 1040px)" />
         </div>
 
         <motion.p

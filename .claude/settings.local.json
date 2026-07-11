@@ -48,7 +48,12 @@
       "Bash(node shot.js)",
       "Bash(node shot-manifesto.js)",
       "Bash(sed 's/width: 390, height: 844, deviceScaleFactor: 3, isMobile: true, hasTouch: true/width: 1440, height: 900, deviceScaleFactor: 2/; s/manifesto-mobile.png/manifesto-desktop.png/' shot-manifesto.js)",
-      "Bash(node shot-manifesto-desktop.js)"
+      "Bash(node shot-manifesto-desktop.js)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,bit_rate,codec_name -of default=noprint_wrappers=1 /Users/selwysm/work/daniel/diligence/apps/web/public/brand/diligence-monogram-silver.mp4)",
+      "Bash(git -C /Users/selwysm/work/daniel/diligence log --oneline -1 -- apps/web/public/brand/diligence-monogram-silver.mp4)",
+      "Bash(ffmpeg -y -v error -i diligence-monogram-silver.mp4 -vf \"scale=828:736:flags=lanczos,unsharp=5:5:0.3\" -c:v libx264 -preset slow -crf 17 -pix_fmt yuv420p -movflags +faststart -an diligence-monogram-silver-2x.mp4)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,bit_rate -of default=noprint_wrappers=1 diligence-monogram-silver-2x.mp4)",
+      "Bash(node shot-hero.js)"
     ],
     "additionalDirectories": [
       "/private/tmp/claude-501/-Users-selwysm-work-daniel-diligence/761b2cf8-922d-4d31-8b07-57c104aa29c9/scratchpad/node_modules"
