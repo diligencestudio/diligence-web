@@ -30,28 +30,29 @@ export function Hero() {
 
       <div className="relative my-auto text-center [text-shadow:0_2px_18px_rgba(5,5,5,0.95)]">
         <motion.p
-          className="mb-4 text-[11px] uppercase tracking-[0.5em] text-titanium sm:mb-6"
+          className="mb-4 text-xs font-semibold uppercase tracking-[0.5em] text-chrome sm:mb-6"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          ACT 01 — REALIZATION
+          ACT 01 — REALIZING
         </motion.p>
 
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          <LogoChrome width="clamp(380px, min(100vw, 58svh), 1040px)" />
+          {/* En móvil se limita a 78vw: el video fuente es de 414px de ancho y a
+              pantalla completa se pixela; más pequeño también respira mejor. */}
+          <LogoChrome width="clamp(260px, min(78vw, 58svh), 1040px)" />
         </div>
 
         <motion.p
-          className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-titanium sm:mt-6"
+          className="mx-auto mt-5 max-w-md text-[15px] font-semibold uppercase leading-relaxed tracking-[0.22em] text-chrome sm:mt-6 sm:text-base"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          El éxito atrae la mirada. La diligencia lo sostiene. Luxury streetwear
-          para quienes construyen su propio poder.
+          Ambition has a uniform
         </motion.p>
 
         {/* En modo lanzamiento no hay tienda a dónde ir: ocultamos los botones. */}
@@ -65,8 +66,8 @@ export function Hero() {
             <Link href="/tienda">
               <Button variant="primary">Explorar la colección</Button>
             </Link>
-            <Link href="/coleccion/realization">
-              <Button variant="outline">Realization</Button>
+            <Link href="/coleccion/realizing">
+              <Button variant="outline">Realizing</Button>
             </Link>
           </motion.div>
         )}
@@ -94,8 +95,9 @@ export function Hero() {
       {/* Accesos directos + indicador de scroll: solo cuando la tienda está abierta. */}
       {!LAUNCH_MODE && (
         <>
+          {/* Solo desktop: en móvil se solapan con el contador y ya están en el menú. */}
           <motion.div
-            className="absolute inset-x-0 bottom-20 z-10 flex justify-between px-10 md:px-20"
+            className="absolute inset-x-0 bottom-20 z-10 hidden justify-between px-10 md:flex md:px-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.1 }}
@@ -116,7 +118,8 @@ export function Hero() {
             </Link>
           </motion.div>
 
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-titanium/50">
+          {/* Solo desktop: en móvil se superpone con el contador. */}
+          <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-titanium/50 md:block">
             Scroll
           </div>
         </>
