@@ -26,20 +26,26 @@ function Result() {
     if (!ref) return;
     let active = true;
 
+    const retry = () => {
+      if (active && tries < 8) setTimeout(() => setTries((t) => t + 1), 2500);
+    };
+
     const poll = async () => {
       try {
         const api = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
         const res = await fetch(`${api}/api/orders/by-reference?ref=${ref}`);
-        if (res.ok && active) {
+        if (!res.ok) {
+          retry();
+          return;
+        }
+        if (active) {
           const data: OrderDTO = await res.json();
           setOrder(data);
           if (data.status === 'APPROVED') clear();
-          if (data.status === 'PENDING' && tries < 8) {
-            setTimeout(() => setTries((t) => t + 1), 2500);
-          }
+          if (data.status === 'PENDING') retry();
         }
       } catch {
-        /* reintenta en el siguiente tick */
+        retry();
       }
     };
 
