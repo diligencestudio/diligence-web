@@ -71,14 +71,15 @@ export function Hero({ currentCollection = null }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <Link href="/tienda">
-              <Button variant="primary">Explorar la colección</Button>
-            </Link>
-            {/* CTA secundario: colección actual. Se oculta si aún no hay ninguna,
-                así nunca lleva a un 404. */}
-            {currentCollection && (
+            {/* CTA único: la colección actual. Sin colección, cae a la tienda
+                completa para que el hero nunca se quede sin llamado a la acción. */}
+            {currentCollection ? (
               <Link href={`/coleccion/${currentCollection.slug}`}>
-                <Button variant="outline">{currentCollection.title}</Button>
+                <Button variant="primary">{currentCollection.title}</Button>
+              </Link>
+            ) : (
+              <Link href="/tienda">
+                <Button variant="primary">Explorar la colección</Button>
               </Link>
             )}
           </motion.div>

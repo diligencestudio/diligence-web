@@ -74,7 +74,7 @@ export default async function HomePage() {
                       className="object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
                     />
                   )}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-obsidian/30">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-obsidian/30 px-6 text-center">
                     <MetalText className="wordmark text-2xl">{c.title}</MetalText>
                     <span className="mt-3 text-[11px] uppercase tracking-[0.3em] text-chrome">
                       Ver colección
