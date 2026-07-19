@@ -33,9 +33,7 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
     section: (product?.section ?? 'unisex') as ProductSection,
     category: product?.category ?? '',
     collection: product?.collection ?? '',
-    sizes: product?.sizes.join(', ') ?? '',
     colors: product?.colors.join(', ') ?? '',
-    stock: product ? String(product.stock) : '0',
     featured: product?.featured ?? false,
     isBasic: product?.isBasic ?? false,
     isBlank: product?.isBlank ?? false,
@@ -43,6 +41,24 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
     active: true,
   });
   const [images, setImages] = useState<Img[]>(product?.images ?? []);
+
+  // Inventario por talla: fuente de verdad cuando el producto maneja tallas.
+  const [rows, setRows] = useState<{ size: string; stock: string }[]>(
+    product?.sizeStock?.length
+      ? product.sizeStock.map((s) => ({ size: s.size, stock: String(s.stock) }))
+      : (product?.sizes.map((s) => ({ size: s, stock: '0' })) ?? []),
+  );
+  // Stock plano para productos sin tallas (accesorios, etc.).
+  const [stockNoSize, setStockNoSize] = useState(
+    product && product.sizes.length === 0 ? String(product.stock) : '0',
+  );
+
+  const addRow = () => setRows((r) => [...r, { size: '', stock: '0' }]);
+  const removeRow = (i: number) => setRows((r) => r.filter((_, idx) => idx !== i));
+  const setRow = (i: number, k: 'size' | 'stock', v: string) =>
+    setRows((r) => r.map((row, idx) => (idx === i ? { ...row, [k]: v } : row)));
+
+  const totalStock = rows.reduce((sum, r) => sum + (Number(r.stock) || 0), 0);
 
   useEffect(() => {
     adminApi.listCollections().then(setCollections).catch(() => {});
@@ -74,6 +90,10 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
     e.preventDefault();
     setSaving(true);
     setError(null);
+    const sizeStock = rows
+      .map((r) => ({ size: r.size.trim(), stock: Number(r.stock) || 0 }))
+      .filter((r) => r.size.length > 0);
+    const hasSizes = sizeStock.length > 0;
     const body: Record<string, unknown> = {
       name: f.name,
       slug: f.slug || slugify(f.name),
@@ -83,9 +103,11 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
       section: f.section,
       category: f.category,
       collection: f.collection || null,
-      sizes: f.sizes.split(',').map((s) => s.trim()).filter(Boolean),
+      // El backend deriva `sizes` y `stock` de `sizeStock` cuando hay tallas.
+      sizeStock,
+      sizes: hasSizes ? sizeStock.map((s) => s.size) : [],
       colors: f.colors.split(',').map((s) => s.trim()).filter(Boolean),
-      stock: Number(f.stock),
+      stock: hasSizes ? totalStock : Number(stockNoSize) || 0,
       featured: f.featured,
       isBasic: f.isBasic,
       isBlank: f.isBlank,
@@ -126,7 +148,7 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
         <textarea className={`${field} min-h-24`} value={f.description} onChange={(e) => set('description', e.target.value)} />
       </div>
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2">
         <div>
           <label className={label}>Precio (COP)</label>
           <input className={field} type="number" min="0" required value={f.price} onChange={(e) => set('price', e.target.value)} />
@@ -134,10 +156,6 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
         <div>
           <label className={label}>Precio anterior (sale)</label>
           <input className={field} type="number" min="0" value={f.compareAt} onChange={(e) => set('compareAt', e.target.value)} />
-        </div>
-        <div>
-          <label className={label}>Stock</label>
-          <input className={field} type="number" min="0" value={f.stock} onChange={(e) => set('stock', e.target.value)} />
         </div>
       </div>
 
@@ -163,15 +181,71 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
         </div>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label className={label}>Tallas (separadas por coma)</label>
-          <input className={field} placeholder="S, M, L, XL" value={f.sizes} onChange={(e) => set('sizes', e.target.value)} />
+      {/* Inventario por talla */}
+      <div>
+        <div className="mb-2 flex items-center justify-between">
+          <label className={`${label} mb-0`}>Inventario por talla</label>
+          {rows.length > 0 && (
+            <span className="text-[11px] uppercase tracking-[0.15em] text-titanium">
+              Total: {totalStock}
+            </span>
+          )}
         </div>
-        <div>
-          <label className={label}>Colores (separados por coma)</label>
-          <input className={field} placeholder="Obsidian Black, Graphite" value={f.colors} onChange={(e) => set('colors', e.target.value)} />
-        </div>
+
+        {rows.length > 0 ? (
+          <div className="space-y-2">
+            {rows.map((row, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <input
+                  className={`${field} flex-1`}
+                  placeholder="Talla (S, M, 32…)"
+                  value={row.size}
+                  onChange={(e) => setRow(i, 'size', e.target.value)}
+                />
+                <input
+                  className={`${field} w-28`}
+                  type="number"
+                  min="0"
+                  placeholder="Stock"
+                  value={row.stock}
+                  onChange={(e) => setRow(i, 'stock', e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeRow(i)}
+                  className="shrink-0 border border-gunmetal px-3 py-2 text-xs text-titanium hover:border-red-400 hover:text-red-400"
+                  aria-label="Quitar talla"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mb-3">
+            <label className={label}>Stock (producto sin tallas)</label>
+            <input
+              className={`${field} w-40`}
+              type="number"
+              min="0"
+              value={stockNoSize}
+              onChange={(e) => setStockNoSize(e.target.value)}
+            />
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={addRow}
+          className="mt-3 border border-titanium/50 px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-chrome hover:border-chrome hover:text-pure"
+        >
+          + Añadir talla
+        </button>
+      </div>
+
+      <div>
+        <label className={label}>Colores (separados por coma)</label>
+        <input className={field} placeholder="Obsidian Black, Graphite" value={f.colors} onChange={(e) => set('colors', e.target.value)} />
       </div>
 
       {/* Imágenes */}

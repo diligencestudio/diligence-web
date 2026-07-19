@@ -21,6 +21,7 @@ export function toProductDTO(product: Product): ProductDTO {
     collection: product.collection,
     sizes: product.sizes,
     colors: product.colors,
+    sizeStock: product.sizeStock,
     stock: product.stock,
     featured: product.featured,
     isBasic: product.isBasic,

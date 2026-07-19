@@ -54,12 +54,21 @@ interface SeedProduct {
   active: boolean;
 }
 
+/** Reparte el stock total entre las tallas (el resto va a las primeras). */
+const distribute = (sizes: string[], total: number) => {
+  if (sizes.length === 0) return [];
+  const base = Math.floor(total / sizes.length);
+  const remainder = total % sizes.length;
+  return sizes.map((size, i) => ({ size, stock: base + (i < remainder ? 1 : 0) }));
+};
+
 const product = (p: SeedProduct) => ({
   compareAtPriceInCents: null,
   featured: false,
   isBasic: false,
   isBlank: false,
   onSale: false,
+  sizeStock: distribute(p.sizes, p.stock),
   ...p,
 });
 

@@ -20,6 +20,7 @@ const product: ProductDTO = {
   collection: 'obsidian',
   sizes: ['M'],
   colors: ['Black'],
+  sizeStock: [{ size: 'M', stock: 10 }],
   stock: 10,
   featured: true,
   isBasic: false,

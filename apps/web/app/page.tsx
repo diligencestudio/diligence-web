@@ -32,10 +32,13 @@ export default async function HomePage() {
   }
 
   const { featured, collections } = await getData();
+  // Colección "actual": la primera por orden de exhibición (controlable desde
+  // el admin). El CTA secundario del hero apunta aquí en lugar de un slug fijo.
+  const currentCollection = collections[0] ?? null;
 
   return (
     <>
-      <Hero />
+      <Hero currentCollection={currentCollection} />
 
       <ImmersiveVideo />
 

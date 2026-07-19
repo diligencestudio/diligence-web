@@ -82,7 +82,8 @@ export class CatalogService {
   }
 
   async updateProduct(id: string, dto: UpdateProductDto): Promise<ProductDTO> {
-    const updated = await this.products.update(id, dto as Partial<ProductInput>);
+    const input = this.normalizeInventory(dto as Partial<ProductInput>);
+    const updated = await this.products.update(id, input);
     if (!updated) throw new NotFoundException(`Producto ${id} no encontrado`);
     return toProductDTO(updated);
   }
@@ -120,7 +121,7 @@ export class CatalogService {
 
   // Aplica los valores por defecto del dominio a la entrada del admin.
   private toProductInput(dto: CreateProductDto): ProductInput {
-    return {
+    return this.normalizeInventory({
       slug: dto.slug,
       name: dto.name,
       description: dto.description ?? '',
@@ -133,12 +134,33 @@ export class CatalogService {
       collection: dto.collection ?? null,
       sizes: dto.sizes ?? [],
       colors: dto.colors ?? [],
+      sizeStock: dto.sizeStock ?? [],
       stock: dto.stock ?? 0,
       featured: dto.featured ?? false,
       isBasic: dto.isBasic ?? false,
       isBlank: dto.isBlank ?? false,
       onSale: dto.onSale ?? false,
       active: dto.active ?? true,
+    }) as ProductInput;
+  }
+
+  /**
+   * Cuando llega `sizeStock`, es la fuente de verdad del inventario:
+   * `sizes` se deriva de sus tallas y `stock` de la suma de cantidades.
+   * Así los dos campos nunca divergen aunque el cliente envíe valores viejos.
+   */
+  private normalizeInventory(
+    input: Partial<ProductInput>,
+  ): Partial<ProductInput> {
+    if (!input.sizeStock) return input;
+    const sizeStock = input.sizeStock.filter((s) => s.size.trim().length > 0);
+    // Sin tallas: se respeta el `stock`/`sizes` plano que envíe el admin.
+    if (sizeStock.length === 0) return { ...input, sizeStock };
+    return {
+      ...input,
+      sizeStock,
+      sizes: sizeStock.map((s) => s.size),
+      stock: sizeStock.reduce((sum, s) => sum + (s.stock || 0), 0),
     };
   }
 

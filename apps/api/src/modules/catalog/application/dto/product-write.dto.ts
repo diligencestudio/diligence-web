@@ -22,6 +22,18 @@ class ProductImageDto {
   alt!: string;
 }
 
+class SizeStockDto {
+  @ApiProperty()
+  @IsString()
+  @MinLength(1)
+  size!: string;
+
+  @ApiProperty()
+  @IsInt()
+  @Min(0)
+  stock!: number;
+}
+
 export class CreateProductDto {
   @ApiProperty()
   @IsString()
@@ -81,7 +93,19 @@ export class CreateProductDto {
   @IsString({ each: true })
   colors?: string[];
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    type: [SizeStockDto],
+    description: 'Inventario por talla. Si se envía, deriva `sizes` y `stock`.',
+  })
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SizeStockDto)
+  sizeStock?: SizeStockDto[];
+
+  @ApiPropertyOptional({
+    description: 'Total. Ignorado si se envía `sizeStock` (se calcula la suma).',
+  })
   @IsOptional()
   @IsInt()
   @Min(0)

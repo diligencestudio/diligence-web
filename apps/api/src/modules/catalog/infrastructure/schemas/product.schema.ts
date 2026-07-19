@@ -44,6 +44,12 @@ export class Product {
   @Prop({ type: [String], default: [] })
   colors!: string[];
 
+  @Prop({
+    type: [{ size: String, stock: { type: Number, min: 0 } }],
+    default: [],
+  })
+  sizeStock!: { size: string; stock: number }[];
+
   @Prop({ default: 0, min: 0 })
   stock!: number;
 

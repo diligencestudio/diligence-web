@@ -3,12 +3,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import type { CollectionDTO } from '@diligence/contracts';
 import { Button } from '@diligence/ui';
 import { Countdown } from './Countdown';
 import { LogoChrome } from '@/components/brand/LogoChrome';
 import { LAUNCH_MODE } from '@/lib/launch';
 
-export function Hero() {
+interface HeroProps {
+  /** Colección actual a la que apunta el CTA secundario. Null la oculta. */
+  currentCollection?: Pick<CollectionDTO, 'slug' | 'title'> | null;
+}
+
+export function Hero({ currentCollection = null }: HeroProps) {
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pb-[calc(env(safe-area-inset-bottom,0px)+1.75rem)] pt-32 sm:pb-16 lg:pt-28">
       {/* Fondo: foto de campaña sobre obsidiana */}
@@ -41,9 +47,11 @@ export function Hero() {
         {/* Sin animación de opacidad: opacity<1 crearía un stacking context que
             aísla el mix-blend-mode del logo y dejaría ver su fondo negro al cargar. */}
         <div className="flex justify-center">
-          {/* 70vw en móvil ≈ resolución nativa del video (828px) en pantallas 3x:
-              más grande se estira y se pixela; más pequeño también respira mejor. */}
-          <LogoChrome width="clamp(240px, min(70vw, 58svh), 1040px)" />
+          {/* El video fuente mide 828px de ancho. En móvil manda 70vw (a 3x ≈ 828px
+              nativos → nítido). En desktop/retina, un tamaño mayor estira el video por
+              encima de su resolución y se pixela; por eso el tope (48svh / 680px) se
+              mantiene cerca de los 828px reales aun contando el 2x de pantallas retina. */}
+          <LogoChrome width="clamp(240px, min(70vw, 48svh), 680px)" />
         </div>
 
         <motion.p
@@ -66,9 +74,13 @@ export function Hero() {
             <Link href="/tienda">
               <Button variant="primary">Explorar la colección</Button>
             </Link>
-            <Link href="/coleccion/realizing">
-              <Button variant="outline">Realizing</Button>
-            </Link>
+            {/* CTA secundario: colección actual. Se oculta si aún no hay ninguna,
+                así nunca lleva a un 404. */}
+            {currentCollection && (
+              <Link href={`/coleccion/${currentCollection.slug}`}>
+                <Button variant="outline">{currentCollection.title}</Button>
+              </Link>
+            )}
           </motion.div>
         )}
 

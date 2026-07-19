@@ -17,6 +17,12 @@ export interface ProductImage {
   alt: string;
 }
 
+/** Inventario de una talla concreta del producto. */
+export interface SizeStock {
+  size: string;
+  stock: number;
+}
+
 export interface ProductDTO {
   id: string;
   slug: string;
@@ -32,6 +38,9 @@ export interface ProductDTO {
   collection: string | null;
   sizes: string[];
   colors: string[];
+  /** Inventario desglosado por talla. Vacío si el producto no maneja tallas. */
+  sizeStock: SizeStock[];
+  /** Total agregado (suma de `sizeStock` cuando hay tallas). */
   stock: number;
   featured: boolean;
   isBasic: boolean;

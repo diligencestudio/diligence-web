@@ -103,6 +103,11 @@ export class MongoProductRepository implements ProductRepository {
       collection: (doc.collection as string | null) ?? null,
       sizes: (doc.sizes as string[]) ?? [],
       colors: (doc.colors as string[]) ?? [],
+      sizeStock:
+        (doc.sizeStock as { size: string; stock: number }[])?.map((s) => ({
+          size: s.size,
+          stock: s.stock ?? 0,
+        })) ?? [],
       stock: (doc.stock as number) ?? 0,
       featured: Boolean(doc.featured),
       isBasic: Boolean(doc.isBasic),

@@ -9,6 +9,11 @@ export interface ProductImage {
 
 export type ProductSection = 'hombre' | 'mujer' | 'unisex';
 
+export interface SizeStock {
+  size: string;
+  stock: number;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -23,6 +28,7 @@ export interface Product {
   collection: string | null;
   sizes: string[];
   colors: string[];
+  sizeStock: SizeStock[];
   stock: number;
   featured: boolean;
   isBasic: boolean;
