@@ -32,13 +32,14 @@ export default async function HomePage() {
   }
 
   const { featured, collections } = await getData();
-  // Colección "actual": la primera por orden de exhibición (controlable desde
-  // el admin). El CTA secundario del hero apunta aquí en lugar de un slug fijo.
-  const currentCollection = collections[0] ?? null;
 
   return (
     <>
-      <Hero currentCollection={currentCollection} />
+      <Hero />
+
+      {/* Solo móvil: empuja el contenido para que el video empiece DEBAJO del
+          navbar fijo (en desktop el video es full-bleed inmersivo). */}
+      <div className="sm:hidden" style={{ height: 'var(--header-h, 116px)' }} aria-hidden />
 
       <ImmersiveVideo />
 

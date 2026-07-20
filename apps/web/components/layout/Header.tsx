@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Wordmark } from '@diligence/ui';
 import { useCart } from '@/store/cart';
@@ -27,6 +27,7 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const count = useCart((s) => s.count());
   const openCart = useCart((s) => s.open);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -36,9 +37,23 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Publica la altura real del header como --header-h para que el contenido
+  // (p.ej. el primer bloque de la home) pueda arrancar justo debajo del navbar.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const setVar = () =>
+      document.documentElement.style.setProperty('--header-h', `${el.offsetHeight}px`);
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <>
       <header
+        ref={headerRef}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-obsidian/85 backdrop-blur-md border-b border-gunmetal/60'
