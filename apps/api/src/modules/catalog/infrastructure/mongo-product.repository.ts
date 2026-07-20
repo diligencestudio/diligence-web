@@ -97,7 +97,11 @@ export class MongoProductRepository implements ProductRepository {
       priceInCents: doc.priceInCents as number,
       compareAtPriceInCents: (doc.compareAtPriceInCents as number | null) ?? null,
       currency: 'COP',
-      images: (doc.images as { url: string; alt: string }[]) ?? [],
+      images:
+        (doc.images as { url: string; alt: string }[])?.map((i) => ({
+          url: i.url,
+          alt: i.alt,
+        })) ?? [],
       section: ((doc.section as string) ?? 'unisex') as ProductEntity['section'],
       category: doc.category as string,
       collection: (doc.collection as string | null) ?? null,

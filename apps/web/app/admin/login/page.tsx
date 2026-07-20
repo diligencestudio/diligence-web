@@ -9,6 +9,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -51,13 +52,23 @@ export default function AdminLoginPage() {
         <label className="mb-2 block text-[11px] uppercase tracking-[0.25em] text-titanium">
           Contraseña
         </label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mb-6 w-full border border-gunmetal bg-transparent px-4 py-3 text-sm text-pure outline-none focus:border-chrome"
-        />
+        <div className="relative mb-6">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border border-gunmetal bg-transparent px-4 py-3 pr-16 text-sm text-pure outline-none focus:border-chrome"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+            className="absolute inset-y-0 right-0 flex items-center px-4 text-[10px] uppercase tracking-[0.2em] text-titanium hover:text-pure"
+          >
+            {showPassword ? 'Ocultar' : 'Ver'}
+          </button>
+        </div>
 
         {error && <p className="mb-4 text-xs text-red-400">{error}</p>}
 

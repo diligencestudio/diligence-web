@@ -9,6 +9,9 @@ import { adminApi } from '@/lib/admin';
 
 const field =
   'w-full border border-gunmetal bg-transparent px-3 py-2 text-sm text-pure outline-none focus:border-chrome';
+// Igual que `field` pero sin `w-full`, para inputs dentro de filas flex (tallas).
+const fieldFlex =
+  'border border-gunmetal bg-transparent px-3 py-2 text-sm text-pure outline-none focus:border-chrome';
 const label = 'mb-1 block text-[11px] uppercase tracking-[0.2em] text-titanium';
 
 interface Img {
@@ -113,7 +116,8 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
       isBlank: f.isBlank,
       onSale: f.onSale,
       active: f.active,
-      images,
+      // Solo url/alt: las imágenes cargadas de la BD traen `_id` y la API lo rechaza.
+      images: images.map((img) => ({ url: img.url, alt: img.alt })),
     };
     try {
       if (editing) await adminApi.updateProduct(product.id, body);
@@ -194,26 +198,31 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
 
         {rows.length > 0 ? (
           <div className="space-y-2">
+            <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.15em] text-titanium/70">
+              <span className="flex-1">Talla</span>
+              <span className="w-24">Cantidad</span>
+              <span className="w-9" />
+            </div>
             {rows.map((row, i) => (
               <div key={i} className="flex items-center gap-3">
                 <input
-                  className={`${field} flex-1`}
-                  placeholder="Talla (S, M, 32…)"
+                  className={`${fieldFlex} min-w-0 flex-1`}
+                  placeholder="S, M, L, 32…"
                   value={row.size}
                   onChange={(e) => setRow(i, 'size', e.target.value)}
                 />
                 <input
-                  className={`${field} w-28`}
+                  className={`${fieldFlex} w-24 flex-none`}
                   type="number"
                   min="0"
-                  placeholder="Stock"
+                  placeholder="0"
                   value={row.stock}
                   onChange={(e) => setRow(i, 'stock', e.target.value)}
                 />
                 <button
                   type="button"
                   onClick={() => removeRow(i)}
-                  className="shrink-0 border border-gunmetal px-3 py-2 text-xs text-titanium hover:border-red-400 hover:text-red-400"
+                  className="w-9 shrink-0 border border-gunmetal py-2 text-xs text-titanium hover:border-red-400 hover:text-red-400"
                   aria-label="Quitar talla"
                 >
                   ✕
@@ -225,7 +234,7 @@ export function ProductForm({ product }: { product?: ProductDTO }) {
           <div className="mb-3">
             <label className={label}>Stock (producto sin tallas)</label>
             <input
-              className={`${field} w-40`}
+              className={`${fieldFlex} w-40`}
               type="number"
               min="0"
               value={stockNoSize}
