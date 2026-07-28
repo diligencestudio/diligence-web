@@ -70,7 +70,7 @@ export function Manifesto() {
   return (
     <section
       ref={ref}
-      className="relative w-full overflow-hidden border-y border-gunmetal/40 bg-obsidian py-32 md:py-44"
+      className="relative w-full overflow-hidden border-t border-gunmetal/40 bg-obsidian py-32 md:py-44"
     >
       {/* Sustrato: la estrella guía, el norte bajo todo. */}
       <motion.div

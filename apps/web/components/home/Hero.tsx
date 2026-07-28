@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { CollectionDTO } from '@diligence/contracts';
 import { Button } from '@diligence/ui';
-import { Countdown } from './Countdown';
 import { LogoChrome } from '@/components/brand/LogoChrome';
 import { LAUNCH_MODE } from '@/lib/launch';
 
@@ -31,7 +30,7 @@ export function Hero({ currentCollection = null }: HeroProps) {
           y necesita fondo oscuro) y deja respirar la foto en los bordes. */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_90%_at_50%_36%,_rgba(5,5,5,0.82)_0%,_rgba(5,5,5,0.5)_42%,_rgba(5,5,5,0.28)_100%)]" />
       {/* Scrim vertical: refuerza la legibilidad del texto de la mitad inferior
-          (párrafo, contador, CTA), que cae sobre las zonas claras de la foto. */}
+          (párrafo, CTA), que cae sobre las zonas claras de la foto. */}
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(5,5,5,0.5)_0%,_transparent_22%,_transparent_38%,_rgba(5,5,5,0.6)_62%,_rgba(5,5,5,0.88)_100%)]" />
 
       <div className="relative my-auto text-center [text-shadow:0_2px_18px_rgba(5,5,5,0.95)]">
@@ -84,8 +83,6 @@ export function Hero({ currentCollection = null }: HeroProps) {
           </motion.div>
         )}
 
-        <Countdown />
-
         {/* Modo lanzamiento: CTA para que los usuarios se registren antes del drop. */}
         {LAUNCH_MODE && (
           <motion.div
@@ -107,7 +104,7 @@ export function Hero({ currentCollection = null }: HeroProps) {
       {/* Accesos directos + indicador de scroll: solo cuando la tienda está abierta. */}
       {!LAUNCH_MODE && (
         <>
-          {/* Solo desktop: en móvil se solapan con el contador y ya están en el menú. */}
+          {/* Solo desktop: en móvil ya están en el menú. */}
           <motion.div
             className="absolute inset-x-0 bottom-20 z-10 hidden justify-between px-10 md:flex md:px-20"
             initial={{ opacity: 0 }}
@@ -130,7 +127,7 @@ export function Hero({ currentCollection = null }: HeroProps) {
             </Link>
           </motion.div>
 
-          {/* Solo desktop: en móvil se superpone con el contador. */}
+          {/* Solo desktop: en móvil el hero ya llega justo al borde inferior. */}
           <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-titanium/50 md:block">
             Scroll
           </div>

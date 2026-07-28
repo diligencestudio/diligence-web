@@ -26,7 +26,7 @@ async function getData(): Promise<{
 }
 
 export default async function HomePage() {
-  // Modo lanzamiento: solo el hero con el contador, nada más.
+  // Modo lanzamiento: solo el hero, nada más.
   if (LAUNCH_MODE) {
     return <Hero />;
   }
@@ -41,8 +41,6 @@ export default async function HomePage() {
       <Hero currentCollection={currentCollection} />
 
       <ImmersiveVideo />
-
-      <Manifesto />
 
       <section className="mx-auto max-w-7xl px-6 py-24">
         <Reveal className="mb-14 text-center">
@@ -86,6 +84,8 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      <Manifesto />
     </>
   );
 }
