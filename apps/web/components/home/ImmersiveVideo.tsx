@@ -5,8 +5,6 @@ import {
   motion,
   useInView,
   useReducedMotion,
-  useScroll,
-  useTransform,
 } from 'framer-motion';
 
 // En desarrollo usa el archivo local; en producción, la URL del CDN (Cloudinary).
@@ -14,32 +12,16 @@ const VIDEO_SRC =
   process.env.NEXT_PUBLIC_IMMERSIVE_VIDEO_URL || '/brand/immersive.mp4';
 
 /**
- * Sección de video.
- * - Desktop: full-bleed inmersivo con zoom-out lento ligado al scroll.
+ * Sección de video inmersivo sin efectos de scroll.
+ * - Desktop: full-bleed inmersivo.
  * - Móvil: encuadre vertical 4:5 full-bleed (object-cover recorta los lados
- *   del 16:9), con un revelado cinematográfico de entrada (sin scroll-pin
- *   ni parallax → se ve limpio).
+ *   del 16:9), con un revelado cinematográfico de entrada.
  * Arranca desde el inicio la primera vez que entra en viewport y queda en bucle.
  */
 export function ImmersiveVideo() {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.18, 1]); // solo desktop
-
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 640px)');
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener('change', update);
-    return () => mq.removeEventListener('change', update);
-  }, []);
 
   const inView = useInView(videoRef, { amount: 0.4, once: true });
   useEffect(() => {
@@ -50,16 +32,12 @@ export function ImmersiveVideo() {
     }
   }, [inView]);
 
-  // El zoom por scroll solo en desktop; en móvil el video queda fijo y limpio.
-  const motionStyle = !reduce && isDesktop ? { scale } : undefined;
-
   return (
-    <div ref={ref} className="relative w-full bg-obsidian sm:h-[230vh]">
-      <div className="relative flex w-full items-center justify-center overflow-hidden sm:sticky sm:top-0 sm:h-screen">
+    <div ref={ref} className="relative w-full bg-obsidian h-screen">
+      <div className="relative flex w-full items-center justify-center overflow-hidden h-full">
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <motion.video
           ref={videoRef}
-          style={motionStyle}
           // Fade-in seguro: animate en montaje (no whileInView), así el video NUNCA
           // se queda invisible aunque el observer no dispare.
           initial={reduce ? false : { opacity: 0 }}
