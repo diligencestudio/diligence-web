@@ -22,7 +22,9 @@ export class MongoProductRepository implements ProductRepository {
 
   private toFilter(query: ProductQuery): FilterQuery<ProductDocument> {
     const filter: FilterQuery<ProductDocument> = { active: true };
-    if (query.section) filter.section = query.section;
+    if (query.section) {
+      filter.section = { $in: [query.section, 'unisex'] };
+    }
     if (query.collection) filter.collection = query.collection;
     if (query.category) filter.category = query.category;
     if (query.featured !== undefined) filter.featured = query.featured;
