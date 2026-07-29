@@ -33,7 +33,9 @@ export function ImmersiveVideo() {
   }, [inView]);
 
   return (
-    <div ref={ref} className="relative w-full bg-obsidian h-screen">
+    // Móvil: la altura la marca el video (4:5). Forzar h-screen dejaba ~400px de
+    // obsidiana vacía, porque en móvil el video no es absolute y no llena el alto.
+    <div ref={ref} className="relative w-full bg-obsidian sm:h-screen">
       <div className="relative flex w-full items-center justify-center overflow-hidden h-full">
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <motion.video
